@@ -2,22 +2,28 @@ version: '3.8'
 
 services:
   webui:
-    build: ./webui
+    image: python:3.9-slim
     ports:
       - "5000:5000"
     volumes:
-      - ./webui/app:/app
-      - ./reports:/app/reports
+      - webui_app:/app
+      - reports:/app/reports
+    command: >
+      sh -c "apt-get update && 
+      apt-get install -y docker.io && 
+      pip install Flask==2.2.3 && 
+      python /app/app.py"
     depends_on:
       - nuclei
 
   nuclei:
     image: projectdiscovery/nuclei:latest
     volumes:
-      - ./templates:/root/nuclei-templates
-      - ./reports:/reports
+      - templates:/root/nuclei-templates
+      - reports:/reports
     entrypoint: ["sleep", "infinity"]
 
 volumes:
+  webui_app:
   templates:
   reports:

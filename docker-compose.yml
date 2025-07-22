@@ -6,8 +6,8 @@ services:
     ports:
       - "5000:5000"
     volumes:
-      - webui_app:/app
-      - reports:/app/reports
+      - ./webui/app:/app
+      - ./reports:/app/reports
     command: >
       sh -c "apt-get update && 
       apt-get install -y docker.io && 

@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  webui:
+    build: ./webui
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./webui/app:/app
+      - ./reports:/app/reports
+    depends_on:
+      - nuclei
+
+  nuclei:
+    image: projectdiscovery/nuclei:latest
+    volumes:
+      - ./templates:/root/nuclei-templates
+      - ./reports:/reports
+    entrypoint: ["sleep", "infinity"]
+
+volumes:
+  templates:
+  reports:

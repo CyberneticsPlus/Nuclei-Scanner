@@ -1,0 +1,19 @@
+id: subdomain-discovery
+
+info:
+  name: Subdomain Discovery Template
+  author: pdteam
+  severity: info
+  description: |
+    Basic subdomain discovery template using DNS brute-force
+
+dns:
+  - name: "{{FQDN}}"
+    type: A
+    class: inet
+    recursion: true
+    retries: 3
+    matchers:
+      - type: word
+        words:
+          - "{{FQDN}}"
